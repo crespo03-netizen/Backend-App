@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Configuration\Configuration;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(UploadApi::class, function ($app) {
+            Configuration::instance(env('CLOUDINARY_URL'));
+
+            return new UploadApi;
+        });
     }
 
     /**
