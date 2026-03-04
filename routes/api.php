@@ -11,13 +11,17 @@ Route::middleware('auth:sanctum')->group(function () {
         return new UserResource($request->user());
     });
 
-    Route::put('/profilePhoto', [UserController::class, 'profilePhoto']);
-    Route::delete('/profilePhoto', [UserController::class, 'destroyPhoto']);
-    Route::put('/profile', [UserController::class, 'update']);
+    Route::controller(UserController::class)->group(function () {
+        Route::put('/profilePhoto', 'profilePhoto');
+        Route::delete('/profilePhoto', 'destroyPhoto');
+        Route::put('/profile', 'update');
+    });
 
-    Route::get('/tasks', [TaskController::class, 'index']);
-    Route::post('/tasks', [TaskController::class, 'store']);
-    Route::post('/tasks/{id}', [TaskController::class, 'show']);
-    Route::put('/tasks/{id}', [TaskController::class, 'update']);
-    Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+    Route::controller(TaskController::class)->group(function () {
+        Route::get('/tasks', 'index');
+        Route::post('/tasks', 'store');
+        Route::post('/tasks/{id}', 'show');
+        Route::put('/tasks/{id}', 'update');
+        Route::delete('/tasks/{id}', 'destroy');
+    });
 });
