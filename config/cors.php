@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => [
+        'http://localhost:3000',
+        'https://frontend-app-alpha-lac.vercel.app',
+    ],
 
     'allowed_origins_patterns' => [],
 
